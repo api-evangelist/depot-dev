@@ -1,0 +1,550 @@
+openapi: 3.0.1
+info:
+  title: Depot API
+  description: >-
+    HTTP/JSON view of the Depot API. Depot's API is built on Connect, which
+    offers multiprotocol support for gRPC, gRPC-Web, and HTTP/JSON over the same
+    services. Each remote procedure call (RPC) is invoked as an HTTP POST to a
+    path of the form /{package}.{Service}/{Method}, with a JSON request body and
+    a JSON response body. This document models the documented services for
+    managing projects, project tokens, builds, and BuildKit connections. All
+    requests are authenticated with a Bearer token (an organization API token,
+    user token, or project token) in the Authorization header.
+  termsOfService: https://depot.dev/terms
+  contact:
+    name: Depot Support
+    url: https://depot.dev/docs
+    email: help@depot.dev
+  version: '1.0'
+servers:
+  - url: https://api.depot.dev
+security:
+  - bearerAuth: []
+tags:
+  - name: ProjectService
+    description: Manage Depot projects and project tokens (depot.core.v1.ProjectService).
+  - name: BuildService
+    description: Register, finish, get, and list builds (depot.build.v1.BuildService).
+  - name: BuildKitService
+    description: Acquire a low-level BuildKit machine connection (depot.buildkit.v1.BuildKitService).
+paths:
+  /depot.core.v1.ProjectService/ListProjects:
+    post:
+      operationId: listProjects
+      tags:
+        - ProjectService
+      summary: List projects in the organization.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ListProjectsRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProjectsResponse'
+  /depot.core.v1.ProjectService/CreateProject:
+    post:
+      operationId: createProject
+      tags:
+        - ProjectService
+      summary: Create a new project.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectResponse'
+  /depot.core.v1.ProjectService/GetProject:
+    post:
+      operationId: getProject
+      tags:
+        - ProjectService
+      summary: Get a single project by ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectIdRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectResponse'
+  /depot.core.v1.ProjectService/UpdateProject:
+    post:
+      operationId: updateProject
+      tags:
+        - ProjectService
+      summary: Update an existing project.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProjectRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectResponse'
+  /depot.core.v1.ProjectService/DeleteProject:
+    post:
+      operationId: deleteProject
+      tags:
+        - ProjectService
+      summary: Delete a project.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectIdRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyResponse'
+  /depot.core.v1.ProjectService/ResetProjectCache:
+    post:
+      operationId: resetProjectCache
+      tags:
+        - ProjectService
+      summary: Reset (clear) the build cache for a project.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectIdRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyResponse'
+  /depot.core.v1.ProjectService/ListProjectTokens:
+    post:
+      operationId: listProjectTokens
+      tags:
+        - ProjectService
+      summary: List project-scoped tokens for a project.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectIdRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListProjectTokensResponse'
+  /depot.core.v1.ProjectService/CreateProjectToken:
+    post:
+      operationId: createProjectToken
+      tags:
+        - ProjectService
+      summary: Create a project-scoped token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectTokenRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateProjectTokenResponse'
+  /depot.core.v1.ProjectService/DeleteProjectToken:
+    post:
+      operationId: deleteProjectToken
+      tags:
+        - ProjectService
+      summary: Delete a project-scoped token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteProjectTokenRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyResponse'
+  /depot.build.v1.BuildService/CreateBuild:
+    post:
+      operationId: createBuild
+      tags:
+        - BuildService
+      summary: Register a new build within a project.
+      description: >-
+        Registers a build for the given project and returns the new build's ID
+        along with a one-time build token used to authenticate the build itself.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBuildRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateBuildResponse'
+  /depot.build.v1.BuildService/FinishBuild:
+    post:
+      operationId: finishBuild
+      tags:
+        - BuildService
+      summary: Mark a build as finished.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FinishBuildRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyResponse'
+  /depot.build.v1.BuildService/GetBuild:
+    post:
+      operationId: getBuild
+      tags:
+        - BuildService
+      summary: Get a single build by ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetBuildRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Build'
+  /depot.build.v1.BuildService/ListBuilds:
+    post:
+      operationId: listBuilds
+      tags:
+        - BuildService
+      summary: List builds for a project.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectIdRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBuildsResponse'
+  /depot.buildkit.v1.BuildKitService/GetEndpoint:
+    post:
+      operationId: getEndpoint
+      tags:
+        - BuildKitService
+      summary: Acquire a BuildKit machine endpoint for a build.
+      description: >-
+        Returns a lower-level BuildKit connection (endpoint plus TLS material)
+        for advanced use cases that drive BuildKit directly. Authenticated with
+        the one-time build token returned by CreateBuild.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetEndpointRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetEndpointResponse'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        A Depot token in the Authorization header as "Bearer {token}". Use an
+        organization API token or user token for project/build management, and a
+        one-time build token (from CreateBuild) for BuildKit endpoint calls.
+  schemas:
+    ListProjectsRequest:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+        pageToken:
+          type: string
+    ListProjectsResponse:
+      type: object
+      properties:
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+    CreateProjectRequest:
+      type: object
+      required:
+        - name
+        - regionId
+      properties:
+        name:
+          type: string
+          example: my-app
+        regionId:
+          type: string
+          example: us-east-1
+        cachePolicy:
+          $ref: '#/components/schemas/CachePolicy'
+    UpdateProjectRequest:
+      type: object
+      required:
+        - projectId
+      properties:
+        projectId:
+          type: string
+        name:
+          type: string
+        regionId:
+          type: string
+        cachePolicy:
+          $ref: '#/components/schemas/CachePolicy'
+    ProjectIdRequest:
+      type: object
+      required:
+        - projectId
+      properties:
+        projectId:
+          type: string
+          example: 1234567890
+    ProjectResponse:
+      type: object
+      properties:
+        project:
+          $ref: '#/components/schemas/Project'
+    Project:
+      type: object
+      properties:
+        projectId:
+          type: string
+        organizationId:
+          type: string
+        name:
+          type: string
+        regionId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        cachePolicy:
+          $ref: '#/components/schemas/CachePolicy'
+    CachePolicy:
+      type: object
+      description: Retention policy for the project's build cache.
+      properties:
+        keepBytes:
+          type: string
+          format: int64
+          description: Maximum cache size to retain, in bytes.
+        keepDays:
+          type: integer
+          format: int32
+          description: Number of days to retain cache entries.
+    ListProjectTokensResponse:
+      type: object
+      properties:
+        tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectToken'
+    ProjectToken:
+      type: object
+      properties:
+        tokenId:
+          type: string
+        description:
+          type: string
+    CreateProjectTokenRequest:
+      type: object
+      required:
+        - projectId
+      properties:
+        projectId:
+          type: string
+        description:
+          type: string
+    CreateProjectTokenResponse:
+      type: object
+      properties:
+        tokenId:
+          type: string
+        secret:
+          type: string
+          description: The token secret, returned only once at creation time.
+    DeleteProjectTokenRequest:
+      type: object
+      required:
+        - projectId
+        - tokenId
+      properties:
+        projectId:
+          type: string
+        tokenId:
+          type: string
+    CreateBuildRequest:
+      type: object
+      required:
+        - projectId
+      properties:
+        projectId:
+          type: string
+          example: 1234567890
+    CreateBuildResponse:
+      type: object
+      properties:
+        buildId:
+          type: string
+        buildToken:
+          type: string
+          description: One-time token used to authenticate this specific build.
+    FinishBuildRequest:
+      type: object
+      required:
+        - buildId
+      properties:
+        buildId:
+          type: string
+        result:
+          type: object
+          properties:
+            success:
+              type: object
+            error:
+              type: object
+              properties:
+                error:
+                  type: string
+    GetBuildRequest:
+      type: object
+      required:
+        - buildId
+      properties:
+        buildId:
+          type: string
+    ListBuildsResponse:
+      type: object
+      properties:
+        builds:
+          type: array
+          items:
+            $ref: '#/components/schemas/Build'
+    Build:
+      type: object
+      properties:
+        buildId:
+          type: string
+        projectId:
+          type: string
+        status:
+          type: string
+          enum:
+            - BUILD_STATUS_UNSPECIFIED
+            - BUILD_STATUS_RUNNING
+            - BUILD_STATUS_FINISHED
+            - BUILD_STATUS_FAILED
+            - BUILD_STATUS_CANCELED
+        createdAt:
+          type: string
+          format: date-time
+        buildDurationSeconds:
+          type: number
+        savedDurationSeconds:
+          type: number
+        cachedSteps:
+          type: integer
+          format: int32
+        totalSteps:
+          type: integer
+          format: int32
+    GetEndpointRequest:
+      type: object
+      required:
+        - buildId
+      properties:
+        buildId:
+          type: string
+        platform:
+          type: string
+          enum:
+            - PLATFORM_UNSPECIFIED
+            - PLATFORM_AMD64
+            - PLATFORM_ARM64
+    GetEndpointResponse:
+      type: object
+      description: >-
+        Streaming response in the gRPC/Connect API; modeled here as the active
+        endpoint message containing the BuildKit connection details.
+      properties:
+        endpoint:
+          type: string
+          description: BuildKit machine endpoint address.
+        serverName:
+          type: string
+        cert:
+          type: object
+          properties:
+            cert:
+              type: string
+            key:
+              type: string
+        caCert:
+          type: object
+          properties:
+            cert:
+              type: string
+    EmptyResponse:
+      type: object

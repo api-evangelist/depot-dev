@@ -1,0 +1,72 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Depot
+providerId: depot-dev
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- Container Builds
+- Docker
+- BuildKit
+- Remote Cache
+- CI/CD
+- GitHub Actions
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Depot does not publish explicit numeric request-per-second rate limits for
+  its Connect/gRPC API (api.depot.dev). In practice, account usage is governed
+  by plan allotments and overage billing (Docker build minutes, GitHub Actions
+  minutes, Depot CI minutes, and cache storage) rather than hard per-second
+  request caps, with concurrency of in-flight builds bounded by plan and
+  organization configuration. Standard gRPC/Connect error codes are returned
+  on throttling or resource-exhaustion conditions.
+notes: >-
+  Specific concurrency limits and any per-endpoint throttles are not documented
+  publicly; confirm with Depot support or the organization settings during
+  reconciliation. Cache storage has no hard size cap (unlike GitHub Actions'
+  10 GB cache limit).
+sources:
+- https://depot.dev/pricing
+- https://depot.dev/docs/container-builds/reference/api-overview
+- https://depot.dev/docs/github-actions/overview
+responseCodes:
+  throttled: 429
+  grpcResourceExhausted: RESOURCE_EXHAUSTED
+limits:
+- name: Docker Build Minutes
+  scope: organization
+  metric: minutes
+  limit: plan allotment then per-minute overage
+  notes: 500 (Developer) / 5,000 (Startup) included; $0.04/min thereafter.
+- name: GitHub Actions Minutes
+  scope: organization
+  metric: minutes
+  limit: plan allotment then per-minute overage
+  notes: 2,000 (Developer) / 20,000 (Startup) included; from $0.004/min thereafter.
+- name: Depot CI
+  scope: organization
+  metric: vcpu_seconds
+  limit: plan allotment then per-second overage
+  notes: 2,000 / 20,000 minutes included; $0.00005/sec/vCPU thereafter.
+- name: Cache Storage
+  scope: organization
+  metric: storage_gb
+  limit: plan allotment then per-GB overage; no hard cap
+  notes: 25 GB / 250 GB included; $0.20/GB/month thereafter, sampled hourly.
+- name: Build Concurrency
+  scope: organization
+  metric: concurrent_builds
+  limit: see provider documentation
+  notes: Concurrent in-flight builds bounded by plan and organization configuration.
+policies:
+- name: Usage-Based Governance
+  description: Usage is bounded by plan allotments and overage billing rather than fixed per-second request limits.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter on RESOURCE_EXHAUSTED / 429 responses and honor any Retry-After hint.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

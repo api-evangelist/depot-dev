@@ -1,0 +1,170 @@
+aid: depot-dev
+url: https://raw.githubusercontent.com/api-evangelist/depot-dev/refs/heads/main/apis.yml
+name: Depot
+kind: company
+description: Depot is a fast container-image build and remote cache service. It runs
+  Docker builds and GitHub Actions jobs on managed, single-tenant cloud compute with
+  persistent BuildKit cache, and exposes Depot Cache as a remote cache backend for
+  tools like Bazel, Go, Turborepo, Gradle, and sccache. Depot is programmable through
+  a public API at api.depot.dev built on Connect (multiprotocol gRPC, gRPC-Web, and
+  HTTP/JSON) for managing projects, tokens, and builds, plus the depot CLI.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Container Builds
+- Docker
+- BuildKit
+- Remote Cache
+- CI/CD
+- GitHub Actions
+created: '2026-06-20'
+modified: '2026-06-20'
+specificationVersion: '0.19'
+apis:
+- aid: depot-dev:depot-dev-project-api
+  name: Depot Project API
+  tags:
+  - Projects
+  - Organizations
+  - Cache Policy
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://depot.dev/docs/api/overview
+  baseURL: https://api.depot.dev
+  properties:
+  - url: https://depot.dev/docs/container-builds/reference/api-overview
+    type: Documentation
+  - url: https://buf.build/depot/api/docs/main:depot.core.v1
+    type: APIReference
+  - url: openapi/depot-dev-openapi.yml
+    type: OpenAPI
+  - url: collections/depot-dev.postman_collection.json
+    type: PostmanCollection
+  - url: collections/depot-dev.opencollection.json
+    type: OpenCollection
+  description: Connect/gRPC ProjectService in the depot.core.v1 package for managing
+    projects (Depot's unit of cache isolation), including create, get, list, update,
+    delete, and cache-policy/reset operations. Exposed over HTTP/JSON as POST calls
+    to /depot.core.v1.ProjectService/{Method}.
+- aid: depot-dev:depot-dev-build-api
+  name: Depot Build API
+  tags:
+  - Builds
+  - Docker
+  - BuildKit
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://depot.dev/docs/api/api-container-builds-tutorial
+  baseURL: https://api.depot.dev
+  properties:
+  - url: https://depot.dev/blog/docker-build-api
+    type: Documentation
+  - url: https://depot.dev/docs/api/api-container-builds-tutorial
+    type: APIReference
+  - url: openapi/depot-dev-openapi.yml
+    type: OpenAPI
+  - url: collections/depot-dev.postman_collection.json
+    type: PostmanCollection
+  - url: collections/depot-dev.opencollection.json
+    type: OpenCollection
+  description: Connect/gRPC BuildService in the depot.build.v1 package for registering
+    a build (returns a build ID and one-time build token), finishing a build, getting
+    a build, and listing builds for a project. Exposed over HTTP/JSON as POST calls
+    to /depot.build.v1.BuildService/{Method}.
+- aid: depot-dev:depot-dev-buildkit-api
+  name: Depot BuildKit API
+  tags:
+  - BuildKit
+  - Endpoint
+  - Machine
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://depot.dev/docs/api/api-container-builds-tutorial
+  baseURL: https://api.depot.dev
+  properties:
+  - url: https://depot.dev/blog/depot-api
+    type: Documentation
+  - url: openapi/depot-dev-openapi.yml
+    type: OpenAPI
+  - url: collections/depot-dev.postman_collection.json
+    type: PostmanCollection
+  - url: collections/depot-dev.opencollection.json
+    type: OpenCollection
+  description: Connect/gRPC BuildKitService in the depot.buildkit.v1 package that acquires
+    a lower-level BuildKit machine connection (endpoint plus TLS material) for advanced
+    use cases that drive BuildKit directly. Exposed over HTTP/JSON as POST calls to
+    /depot.buildkit.v1.BuildKitService/{Method}.
+- aid: depot-dev:depot-dev-tokens-api
+  name: Depot Tokens API
+  tags:
+  - Tokens
+  - Authentication
+  - Project Tokens
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://depot.dev/docs/container-builds/reference/api-authentication
+  baseURL: https://api.depot.dev
+  properties:
+  - url: https://depot.dev/docs/container-builds/reference/api-authentication
+    type: Documentation
+  - url: https://depot.dev/blog/project-tokens
+    type: Documentation
+  - url: openapi/depot-dev-openapi.yml
+    type: OpenAPI
+  - url: collections/depot-dev.postman_collection.json
+    type: PostmanCollection
+  - url: collections/depot-dev.opencollection.json
+    type: OpenCollection
+  description: Project-token management on the depot.core.v1 ProjectService (list,
+    create, and delete project-scoped tokens). Project tokens are scoped to a single
+    project and are the recommended credential for authenticating CI builds. Exposed
+    over HTTP/JSON as POST calls to /depot.core.v1.ProjectService/{Method}.
+- aid: depot-dev:depot-dev-github-actions-runners
+  name: Depot GitHub Actions Runners
+  tags:
+  - GitHub Actions
+  - Runners
+  - CI/CD
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://depot.dev/docs/github-actions/overview
+  baseURL: https://api.depot.dev
+  properties:
+  - url: https://depot.dev/docs/github-actions/overview
+    type: Documentation
+  - url: https://depot.dev/products/github-actions
+    type: Documentation
+  description: Managed, single-tenant GitHub Actions runners selected via runner labels
+    (e.g. depot-ubuntu-24.04, depot-ubuntu-24.04-arm) across Intel, Arm/Graviton4,
+    macOS, Windows, and GPU sizes. Runners are provisioned through a GitHub webhook
+    integration rather than direct API calls; usage is billed per second at roughly
+    half the cost of GitHub-hosted runners.
+- aid: depot-dev:depot-dev-cache
+  name: Depot Cache
+  tags:
+  - Remote Cache
+  - Bazel
+  - Turborepo
+  - sccache
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://depot.dev/docs/cache/overview
+  baseURL: https://api.depot.dev
+  properties:
+  - url: https://depot.dev/docs/cache/overview
+    type: Documentation
+  description: Depot Cache is a remote build cache backend that plugs into tools supporting
+    remote caching (GitHub Actions, Bazel, Go, Turborepo, Gradle, Pants, sccache).
+    It is consumed through each tool's native remote-cache protocol authenticated with
+    a Depot token, not through a separate REST API.
+common:
+- type: GitHubOrganization
+  url: https://github.com/depot
+- type: LinkedIn
+  url: https://www.linkedin.com/company/depot-dev
+- type: Website
+  url: https://depot.dev/
+- type: Documentation
+  url: https://depot.dev/docs
+- type: Plans
+  url: plans/depot-dev-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/depot-dev-rate-limits.yml
+- type: FinOps
+  url: finops/depot-dev-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,265 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Depot
+providerId: depot-dev
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- Container Builds
+- Docker
+- BuildKit
+- Remote Cache
+- CI/CD
+- GitHub Actions
+- Plans
+description: >-
+  Depot uses fixed monthly subscription plans (Developer, Startup, Business)
+  that bundle Docker build minutes, GitHub Actions minutes, Depot CI minutes,
+  and cache storage, with usage beyond the bundle billed per minute / per
+  second / per GB-month. Docker builds and GitHub Actions are tracked per
+  second and billed for whole minutes used, with no one-minute minimum. Cache
+  storage is billed as the average cache used at the end of the month, sampled
+  per hour, with no hard cache size cap.
+notes: >-
+  Plan allotments and overage rates as published on the Depot pricing page;
+  verify current figures and the full GitHub Actions runner size matrix on the
+  pricing page during reconciliation.
+sources:
+- https://depot.dev/pricing
+- https://depot.dev/docs/github-actions/overview
+- https://depot.dev/docs/cache/overview
+plans:
+- id: depot-developer
+  name: Developer
+  type: flat
+  description: >-
+    Entry plan for a single developer with bundled build and cache allotments;
+    additional usage billed at the standard overage rates.
+  entries:
+  - label: Monthly Subscription
+    name: subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $20 per month
+    userMultiplied: false
+  - label: Seats
+    name: seats
+    type: flat
+    metric: users
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 1 user included
+    userMultiplied: false
+  - label: Included Docker Build Minutes
+    name: docker_build_minutes
+    type: flat
+    metric: minutes
+    limit: 500
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 500 minutes included
+    userMultiplied: false
+  - label: Included GitHub Actions Minutes
+    name: github_actions_minutes
+    type: flat
+    metric: minutes
+    limit: 2000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 2,000 minutes included
+    userMultiplied: false
+  - label: Included Depot CI Minutes
+    name: depot_ci_minutes
+    type: flat
+    metric: minutes
+    limit: 2000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 2,000 minutes included
+    userMultiplied: false
+  - label: Included Cache Storage
+    name: cache_storage
+    type: flat
+    metric: storage_gb
+    limit: 25
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 25 GB included
+    userMultiplied: false
+  elements:
+  - name: Container Builds
+  - name: GitHub Actions Runners
+  - name: Depot CI
+  - name: Depot Cache
+- id: depot-startup
+  name: Startup
+  type: flat
+  description: >-
+    Team plan with unlimited seats and larger bundled allotments; additional
+    usage billed at the standard overage rates.
+  entries:
+  - label: Monthly Subscription
+    name: subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $200 per month
+    userMultiplied: false
+  - label: Seats
+    name: seats
+    type: flat
+    metric: users
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: unlimited users included
+    userMultiplied: false
+  - label: Included Docker Build Minutes
+    name: docker_build_minutes
+    type: flat
+    metric: minutes
+    limit: 5000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 5,000 minutes included
+    userMultiplied: false
+  - label: Included GitHub Actions Minutes
+    name: github_actions_minutes
+    type: flat
+    metric: minutes
+    limit: 20000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 20,000 minutes included
+    userMultiplied: false
+  - label: Included Depot CI Minutes
+    name: depot_ci_minutes
+    type: flat
+    metric: minutes
+    limit: 20000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 20,000 minutes included
+    userMultiplied: false
+  - label: Included Cache Storage
+    name: cache_storage
+    type: flat
+    metric: storage_gb
+    limit: 250
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: 250 GB included
+    userMultiplied: false
+  elements:
+  - name: Container Builds
+  - name: GitHub Actions Runners
+  - name: Depot CI
+  - name: Depot Cache
+- id: depot-overage
+  name: Usage Overage
+  type: usage
+  description: >-
+    Metered rates applied to usage beyond a plan's bundled allotments, shared
+    across the Developer and Startup plans.
+  entries:
+  - label: Docker Build Minutes
+    name: docker_build_overage
+    type: usage
+    metric: minutes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.04 per minute
+    userMultiplied: false
+  - label: GitHub Actions Minutes
+    name: github_actions_overage
+    type: usage
+    metric: minutes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.004 per minute (2 vCPU; larger runner sizes scale up to ~$0.128/min for 64 vCPU)
+    userMultiplied: false
+  - label: Depot CI
+    name: depot_ci_overage
+    type: usage
+    metric: vcpu_seconds
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.00005 per second per vCPU
+    userMultiplied: false
+  - label: Agent Sandboxes
+    name: sandbox_overage
+    type: usage
+    metric: minutes
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.01 per minute
+    userMultiplied: false
+  - label: Cache Storage
+    name: cache_storage_overage
+    type: usage
+    metric: storage_gb
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.20 per GB per month (average cache used, sampled hourly)
+    userMultiplied: false
+  elements:
+  - name: Container Builds
+  - name: GitHub Actions Runners
+  - name: Depot CI
+  - name: Depot Cache
+- id: depot-business
+  name: Business
+  type: enterprise
+  description: >-
+    Custom plan with unlimited seats, custom allotments for all services,
+    dedicated and self-hosted compute options, GPU runners, and negotiated
+    terms. Contact Depot sales.
+  entries:
+  - label: Custom Agreement
+    name: business
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: custom pricing - contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Allotments
+  - name: Dedicated / Self-Hosted Compute
+  - name: GPU Runners
+  - name: Priority Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

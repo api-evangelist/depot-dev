@@ -1,0 +1,116 @@
+aid: depot-dev
+name: Depot
+review:
+  question: Does Depot expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Depot does not expose a documented
+    public WebSocket or HTTP Server-Sent Events (SSE) API surface. Depot's API
+    is a Connect/gRPC API; server-streaming RPCs (such as the BuildKit endpoint
+    stream and build log/output streams) are carried over gRPC / gRPC-Web /
+    Connect streaming, not over WebSocket or SSE, so they are out of scope for
+    AsyncAPI modeling under current API Evangelist scope.
+findings:
+  summary: |
+    Depot exposes a real, public, programmatic API at https://api.depot.dev
+    built on Connect (ConnectRPC), which provides multiprotocol support for
+    gRPC, gRPC-Web, and HTTP/JSON over the same service definitions. Each RPC is
+    invoked as an HTTP POST to /{package}.{Service}/{Method}. The documented
+    services are depot.core.v1.ProjectService (projects and project tokens),
+    depot.build.v1.BuildService (register/finish/get/list builds), and
+    depot.buildkit.v1.BuildKitService (acquire a low-level BuildKit machine
+    connection). Authentication uses an Authorization: Bearer {token} header
+    with an organization API token, user token, or single-project token; builds
+    are additionally authenticated with a one-time build token returned by
+    CreateBuild. Official SDKs exist for Node (@depot/sdk-node) and Go
+    (depot/depot-go), and the depot CLI is built on the same API. Depot's
+    GitHub Actions runners are provisioned via a GitHub webhook integration and
+    selected by runner label, not via direct API calls. Depot Cache is consumed
+    through each build tool's native remote-cache protocol, not a separate REST
+    API. No WebSocket (ws:// or wss://) endpoint is documented.
+  transports:
+    - protocol: Connect (ConnectRPC)
+      scheme: https
+      baseURL: https://api.depot.dev
+      documented: true
+      note: Multiprotocol Connect handlers serve the same services over gRPC, gRPC-Web, and HTTP/JSON.
+    - protocol: gRPC
+      scheme: https
+      baseURL: https://api.depot.dev
+      documented: true
+      note: Native gRPC over HTTP/2 for the depot.core.v1, depot.build.v1, and depot.buildkit.v1 services.
+    - protocol: HTTP/JSON
+      scheme: https
+      baseURL: https://api.depot.dev
+      documented: true
+      note: JSON request/response bodies POSTed to /{package}.{Service}/{Method}; this is the surface modeled in the OpenAPI document.
+    - protocol: REST
+      scheme: https
+      documented: false
+      note: No resource-oriented REST API is published; the HTTP/JSON surface is RPC-style Connect, not REST.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented. Streaming RPCs use gRPC/Connect streaming, not WebSocket.
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No HTTP Server-Sent Events endpoint is documented.
+  endpointsConfirmedConnect:
+    - POST https://api.depot.dev/depot.core.v1.ProjectService/ListProjects
+    - POST https://api.depot.dev/depot.core.v1.ProjectService/CreateProject
+    - POST https://api.depot.dev/depot.core.v1.ProjectService/GetProject
+    - POST https://api.depot.dev/depot.core.v1.ProjectService/UpdateProject
+    - POST https://api.depot.dev/depot.core.v1.ProjectService/DeleteProject
+    - POST https://api.depot.dev/depot.core.v1.ProjectService/ResetProjectCache
+    - POST https://api.depot.dev/depot.core.v1.ProjectService/ListProjectTokens
+    - POST https://api.depot.dev/depot.core.v1.ProjectService/CreateProjectToken
+    - POST https://api.depot.dev/depot.core.v1.ProjectService/DeleteProjectToken
+    - POST https://api.depot.dev/depot.build.v1.BuildService/CreateBuild
+    - POST https://api.depot.dev/depot.build.v1.BuildService/FinishBuild
+    - POST https://api.depot.dev/depot.build.v1.BuildService/GetBuild
+    - POST https://api.depot.dev/depot.build.v1.BuildService/ListBuilds
+    - POST https://api.depot.dev/depot.buildkit.v1.BuildKitService/GetEndpoint
+  notesOnNaming: |
+    The depot.core.v1 package also contains OrganizationService and
+    UsageService per the Node SDK. Exact RPC method names for project-token
+    operations and the BuildKit endpoint stream are reconstructed from Depot's
+    API tutorial, the @depot/sdk-node and depot-go SDKs, and the published proto
+    package names (depot.core.v1, depot.build.v1, depot.buildkit.v1); some
+    method names (e.g. ResetProjectCache, GetEndpoint) follow the documented
+    CLI/SDK behavior and may differ slightly from the canonical proto. The
+    full canonical schema is published on the Buf Schema Registry.
+sources:
+  - url: https://depot.dev/docs/container-builds/reference/api-overview
+    type: Documentation
+    note: States the API uses Connect with multiprotocol support for gRPC and HTTP/JSON.
+  - url: https://depot.dev/docs/api/api-container-builds-tutorial
+    type: APIReference
+    note: Shows depot.core.v1.ProjectService.CreateProject and depot.build.v1.BuildService.CreateBuild with Bearer auth against api.depot.dev.
+  - url: https://depot.dev/blog/depot-api
+    type: Documentation
+    note: Describes the Namespace/Project, Build, and BuildKit services.
+  - url: https://depot.dev/docs/container-builds/reference/api-authentication
+    type: Documentation
+    note: Authorization Bearer token; organization, user, and project token types.
+  - url: https://buf.build/depot/api/docs/main:depot.core.v1
+    type: APIReference
+    note: Canonical Buf Schema Registry documentation for the depot.core.v1 package.
+  - url: https://github.com/depot/sdk-node
+    type: SDK
+    note: Node SDK exposing depot.core.v1 (ProjectService, OrganizationService, UsageService), depot.build.v1.BuildService, and depot.buildkit.v1.BuildKitService.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or SSE surface exists, so no AsyncAPI document was authored.
+    The OpenAPI document models the documented Connect HTTP/JSON RPC surface
+    (ProjectService, BuildService, BuildKitService). apis.yml records the six
+    catalog sub-APIs (Project, Build, BuildKit, Tokens, GitHub Actions Runners,
+    Cache) with protocols described accurately as Connect/gRPC/HTTP-JSON.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

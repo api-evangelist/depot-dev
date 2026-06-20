@@ -1,0 +1,165 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Depot API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ProjectService",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "List projects in the organization.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/ListProjects",
+            "body": { "type": "json", "data": "{\n  \"pageSize\": 50\n}" }
+          },
+          "docs": "List projects in the organization."
+        },
+        {
+          "info": { "name": "Create a new project.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/CreateProject",
+            "body": { "type": "json", "data": "{\n  \"name\": \"my-app\",\n  \"regionId\": \"us-east-1\",\n  \"cachePolicy\": {\n    \"keepBytes\": \"53687091200\",\n    \"keepDays\": 14\n  }\n}" }
+          },
+          "docs": "Create a new project."
+        },
+        {
+          "info": { "name": "Get a single project by ID.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/GetProject",
+            "body": { "type": "json", "data": "{\n  \"projectId\": \"1234567890\"\n}" }
+          },
+          "docs": "Get a single project by ID."
+        },
+        {
+          "info": { "name": "Update an existing project.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/UpdateProject",
+            "body": { "type": "json", "data": "{\n  \"projectId\": \"1234567890\",\n  \"name\": \"my-app-renamed\"\n}" }
+          },
+          "docs": "Update an existing project."
+        },
+        {
+          "info": { "name": "Delete a project.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/DeleteProject",
+            "body": { "type": "json", "data": "{\n  \"projectId\": \"1234567890\"\n}" }
+          },
+          "docs": "Delete a project."
+        },
+        {
+          "info": { "name": "Reset (clear) the build cache for a project.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/ResetProjectCache",
+            "body": { "type": "json", "data": "{\n  \"projectId\": \"1234567890\"\n}" }
+          },
+          "docs": "Reset (clear) the build cache for a project."
+        },
+        {
+          "info": { "name": "List project-scoped tokens.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/ListProjectTokens",
+            "body": { "type": "json", "data": "{\n  \"projectId\": \"1234567890\"\n}" }
+          },
+          "docs": "List project-scoped tokens."
+        },
+        {
+          "info": { "name": "Create a project-scoped token.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/CreateProjectToken",
+            "body": { "type": "json", "data": "{\n  \"projectId\": \"1234567890\",\n  \"description\": \"CI token\"\n}" }
+          },
+          "docs": "Create a project-scoped token."
+        },
+        {
+          "info": { "name": "Delete a project-scoped token.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/DeleteProjectToken",
+            "body": { "type": "json", "data": "{\n  \"projectId\": \"1234567890\",\n  \"tokenId\": \"tok_abc123\"\n}" }
+          },
+          "docs": "Delete a project-scoped token."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "BuildService",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Register a new build within a project.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.build.v1.BuildService/CreateBuild",
+            "body": { "type": "json", "data": "{\n  \"projectId\": \"1234567890\"\n}" }
+          },
+          "docs": "Register a new build within a project. Returns a buildId and a one-time buildToken."
+        },
+        {
+          "info": { "name": "Mark a build as finished.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.build.v1.BuildService/FinishBuild",
+            "body": { "type": "json", "data": "{\n  \"buildId\": \"build_abc123\",\n  \"result\": {\n    \"success\": {}\n  }\n}" }
+          },
+          "docs": "Mark a build as finished."
+        },
+        {
+          "info": { "name": "Get a single build by ID.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.build.v1.BuildService/GetBuild",
+            "body": { "type": "json", "data": "{\n  \"buildId\": \"build_abc123\"\n}" }
+          },
+          "docs": "Get a single build by ID."
+        },
+        {
+          "info": { "name": "List builds for a project.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.build.v1.BuildService/ListBuilds",
+            "body": { "type": "json", "data": "{\n  \"projectId\": \"1234567890\"\n}" }
+          },
+          "docs": "List builds for a project."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "BuildKitService",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": { "name": "Acquire a BuildKit machine endpoint for a build.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.buildkit.v1.BuildKitService/GetEndpoint",
+            "body": { "type": "json", "data": "{\n  \"buildId\": \"build_abc123\",\n  \"platform\": \"PLATFORM_AMD64\"\n}" }
+          },
+          "docs": "Acquire a low-level BuildKit machine endpoint (endpoint plus TLS material) for a build."
+        }
+      ]
+    }
+  ]
+}

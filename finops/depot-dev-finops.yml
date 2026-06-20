@@ -1,0 +1,114 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Depot
+providerId: depot-dev
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- Container Builds
+- Docker
+- BuildKit
+- Remote Cache
+- CI/CD
+- GitHub Actions
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Depot spend. Depot bills a fixed monthly subscription
+  (Developer / Startup) or custom Business contract, plus usage-based overage
+  for Docker build minutes ($0.04/min), GitHub Actions runner minutes (from
+  $0.004/min, scaling with vCPU size), Depot CI ($0.00005/sec/vCPU), agent
+  sandboxes ($0.01/min), and cache storage ($0.20/GB/month). Build and runner
+  time is tracked per second with no one-minute minimum; cache storage is the
+  average used over the month, sampled hourly.
+notes: >-
+  Overage rates and bundled allotments are subject to change; verify against
+  the Depot pricing page during reconciliation.
+sources:
+- https://depot.dev/pricing
+- https://depot.dev/docs/github-actions/overview
+- https://depot.dev/docs/cache/overview
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Depot
+serviceCategory: Developer Tools and CI/CD
+billingModel:
+  pricingCategory: Subscription plus Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: Depot
+  ServiceCategory: Developer Tools and CI/CD
+  ProviderName: Depot
+  PublisherName: Depot
+  InvoiceIssuerName: Depot
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: subscription
+  description: Fixed monthly plan fee (Developer $20, Startup $200, Business custom).
+  unit: subscription
+  aggregation: sum
+  dimensions:
+  - organization
+  - plan
+- name: docker_build_minutes
+  description: Docker build minutes consumed, tracked per second, billed per minute beyond plan allotment.
+  unit: minutes
+  aggregation: sum
+  dimensions:
+  - organization
+  - project
+- name: github_actions_minutes
+  description: GitHub Actions runner minutes, tracked per second, billed per minute by runner vCPU size beyond plan allotment.
+  unit: minutes
+  aggregation: sum
+  dimensions:
+  - organization
+  - runner_label
+- name: depot_ci_vcpu_seconds
+  description: Depot CI compute billed per second per vCPU.
+  unit: vcpu_seconds
+  aggregation: sum
+  dimensions:
+  - organization
+  - project
+- name: sandbox_minutes
+  description: Agent sandbox runtime billed per minute.
+  unit: minutes
+  aggregation: sum
+  dimensions:
+  - organization
+  - project
+- name: cache_storage_gb_month
+  description: Average cache storage used over the month, sampled hourly, billed per GB-month beyond plan allotment.
+  unit: storage_gb
+  aggregation: average
+  dimensions:
+  - organization
+  - project
+principles:
+- name: Visibility
+  description: Use Depot's per-project and per-build analytics to inspect build minutes, runner spend, and cache size by project and runner label.
+- name: Allocation
+  description: Use per-project tokens and projects as cost boundaries; map projects/runner labels to internal teams and cost centers.
+- name: Optimization
+  description: Lean on persistent BuildKit cache and Depot Cache to cut build minutes; right-size GitHub Actions runner vCPU; reset stale project cache to control storage; exploit per-second billing for short jobs.
+- name: Accountability
+  description: Assign owners per project; review monthly minutes, runner spend, and cache storage against plan allotments and budget.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
