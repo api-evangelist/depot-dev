@@ -151,6 +151,10 @@ apis:
     It is consumed through each tool's native remote-cache protocol authenticated with
     a Depot token, not through a separate REST API.
 common:
+- type: DomainSecurity
+  url: security/depot-dev-domain-security.yml
+- type: Authentication
+  url: authentication/depot-dev-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/depot
 - type: LinkedIn
@@ -165,6 +169,8 @@ common:
   url: rate-limits/depot-dev-rate-limits.yml
 - type: FinOps
   url: finops/depot-dev-finops.yml
+- type: Blog
+  url: https://depot.dev/rss.xml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

@@ -1,0 +1,15 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/depot-dev-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: A Depot token in the Authorization header as "Bearer {token}". Use an organization
+    API token or user token for project/build management, and a one-time build token (from CreateBuild)
+    for BuildKit endpoint calls.
+  sources:
+  - openapi/depot-dev-openapi.yml
