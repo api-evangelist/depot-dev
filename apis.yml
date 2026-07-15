@@ -151,6 +151,8 @@ apis:
     It is consumed through each tool's native remote-cache protocol authenticated with
     a Depot token, not through a separate REST API.
 common:
+- type: AgenticAccess
+  url: agentic-access/depot-dev-agentic-access.yml
 - type: DomainSecurity
   url: security/depot-dev-domain-security.yml
 - type: Authentication
