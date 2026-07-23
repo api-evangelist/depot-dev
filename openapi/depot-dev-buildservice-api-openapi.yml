@@ -1,0 +1,187 @@
+openapi: 3.0.1
+info:
+  title: Depot BuildKitService BuildService API
+  description: HTTP/JSON view of the Depot API. Depot's API is built on Connect, which offers multiprotocol support for gRPC, gRPC-Web, and HTTP/JSON over the same services. Each remote procedure call (RPC) is invoked as an HTTP POST to a path of the form /{package}.{Service}/{Method}, with a JSON request body and a JSON response body. This document models the documented services for managing projects, project tokens, builds, and BuildKit connections. All requests are authenticated with a Bearer token (an organization API token, user token, or project token) in the Authorization header.
+  termsOfService: https://depot.dev/terms
+  contact:
+    name: Depot Support
+    url: https://depot.dev/docs
+    email: help@depot.dev
+  version: '1.0'
+servers:
+- url: https://api.depot.dev
+security:
+- bearerAuth: []
+tags:
+- name: BuildService
+  description: Register, finish, get, and list builds (depot.build.v1.BuildService).
+paths:
+  /depot.build.v1.BuildService/CreateBuild:
+    post:
+      operationId: createBuild
+      tags:
+      - BuildService
+      summary: Register a new build within a project.
+      description: Registers a build for the given project and returns the new build's ID along with a one-time build token used to authenticate the build itself.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBuildRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateBuildResponse'
+  /depot.build.v1.BuildService/FinishBuild:
+    post:
+      operationId: finishBuild
+      tags:
+      - BuildService
+      summary: Mark a build as finished.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FinishBuildRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyResponse'
+  /depot.build.v1.BuildService/GetBuild:
+    post:
+      operationId: getBuild
+      tags:
+      - BuildService
+      summary: Get a single build by ID.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetBuildRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Build'
+  /depot.build.v1.BuildService/ListBuilds:
+    post:
+      operationId: listBuilds
+      tags:
+      - BuildService
+      summary: List builds for a project.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProjectIdRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBuildsResponse'
+components:
+  schemas:
+    ProjectIdRequest:
+      type: object
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+          example: 1234567890
+    CreateBuildRequest:
+      type: object
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+          example: 1234567890
+    ListBuildsResponse:
+      type: object
+      properties:
+        builds:
+          type: array
+          items:
+            $ref: '#/components/schemas/Build'
+    FinishBuildRequest:
+      type: object
+      required:
+      - buildId
+      properties:
+        buildId:
+          type: string
+        result:
+          type: object
+          properties:
+            success:
+              type: object
+            error:
+              type: object
+              properties:
+                error:
+                  type: string
+    CreateBuildResponse:
+      type: object
+      properties:
+        buildId:
+          type: string
+        buildToken:
+          type: string
+          description: One-time token used to authenticate this specific build.
+    GetBuildRequest:
+      type: object
+      required:
+      - buildId
+      properties:
+        buildId:
+          type: string
+    Build:
+      type: object
+      properties:
+        buildId:
+          type: string
+        projectId:
+          type: string
+        status:
+          type: string
+          enum:
+          - BUILD_STATUS_UNSPECIFIED
+          - BUILD_STATUS_RUNNING
+          - BUILD_STATUS_FINISHED
+          - BUILD_STATUS_FAILED
+          - BUILD_STATUS_CANCELED
+        createdAt:
+          type: string
+          format: date-time
+        buildDurationSeconds:
+          type: number
+        savedDurationSeconds:
+          type: number
+        cachedSteps:
+          type: integer
+          format: int32
+        totalSteps:
+          type: integer
+          format: int32
+    EmptyResponse:
+      type: object
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: A Depot token in the Authorization header as "Bearer {token}". Use an organization API token or user token for project/build management, and a one-time build token (from CreateBuild) for BuildKit endpoint calls.
