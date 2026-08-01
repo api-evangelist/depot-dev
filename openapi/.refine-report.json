@@ -1,0 +1,18 @@
+{
+  "provider": "depot-dev",
+  "sources": [
+    "depot-dev-buildkitservice-api-openapi.yml",
+    "depot-dev-buildservice-api-openapi.yml",
+    "depot-dev-projectservice-api-openapi.yml"
+  ],
+  "outputs": [
+    "depot-dev-buildkitservice-api-openapi.yml",
+    "depot-dev-buildservice-api-openapi.yml",
+    "depot-dev-projectservice-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
