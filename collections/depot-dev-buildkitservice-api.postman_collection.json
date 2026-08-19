@@ -1,0 +1,142 @@
+{
+  "item": [
+    {
+      "id": "9dbbb3e1-037f-4be5-9747-c20f74eec2ba",
+      "name": "BuildKitService",
+      "description": {
+        "content": "Acquire a low-level BuildKit machine connection (depot.buildkit.v1.BuildKitService).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "848a4ea0-6d85-4a41-8574-7eba8488931b",
+          "name": "Acquire a BuildKit machine endpoint for a build.",
+          "request": {
+            "name": "Acquire a BuildKit machine endpoint for a build.",
+            "description": {
+              "content": "Returns a lower-level BuildKit connection (endpoint plus TLS material) for advanced use cases that drive BuildKit directly. Authenticated with the one-time build token returned by CreateBuild.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "depot.buildkit.v1.BuildKitService",
+                "GetEndpoint"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"buildId\": \"<string>\",\n  \"platform\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3ec555be-eb00-4cb6-bde9-b9124c76c2ad",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "depot.buildkit.v1.BuildKitService",
+                    "GetEndpoint"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"buildId\": \"<string>\",\n  \"platform\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"endpoint\": \"string\",\n  \"serverName\": \"string\",\n  \"cert\": {\n    \"cert\": \"string\",\n    \"key\": \"string\"\n  },\n  \"caCert\": {\n    \"cert\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.depot.dev",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "af3b59f4-6386-44d2-b398-5d2c80d57d4a",
+    "name": "Depot BuildKitService API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP/JSON view of the Depot API. Depot's API is built on Connect, which offers multiprotocol support for gRPC, gRPC-Web, and HTTP/JSON over the same services. Each remote procedure call (RPC) is invoked as an HTTP POST to a path of the form /{package}.{Service}/{Method}, with a JSON request body and a JSON response body. This document models the documented services for managing projects, project tokens, builds, and BuildKit connections. All requests are authenticated with a Bearer token (an organization API token, user token, or project token) in the Authorization header.\n\nContact Support:\n Name: Depot Support\n Email: help@depot.dev",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Depot BuildKitService ProjectService API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ProjectService",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List projects in the organization.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/ListProjects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "List projects in the organization."
+        },
+        {
+          "info": {
+            "name": "Create a new project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/CreateProject",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new project."
+        },
+        {
+          "info": {
+            "name": "Get a single project by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/GetProject",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a single project by ID."
+        },
+        {
+          "info": {
+            "name": "Update an existing project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/UpdateProject",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update an existing project."
+        },
+        {
+          "info": {
+            "name": "Delete a project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/DeleteProject",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a project."
+        },
+        {
+          "info": {
+            "name": "Reset (clear) the build cache for a project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/ResetProjectCache",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Reset (clear) the build cache for a project."
+        },
+        {
+          "info": {
+            "name": "List project-scoped tokens for a project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/ListProjectTokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "List project-scoped tokens for a project."
+        },
+        {
+          "info": {
+            "name": "Create a project-scoped token.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/CreateProjectToken",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a project-scoped token."
+        },
+        {
+          "info": {
+            "name": "Delete a project-scoped token.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.core.v1.ProjectService/DeleteProjectToken",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete a project-scoped token."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

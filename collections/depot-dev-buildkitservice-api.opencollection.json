@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Depot BuildKitService API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "BuildKitService",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Acquire a BuildKit machine endpoint for a build.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.buildkit.v1.BuildKitService/GetEndpoint",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns a lower-level BuildKit connection (endpoint plus TLS material) for advanced use cases that drive BuildKit directly. Authenticated with the one-time build token returned by CreateBuild."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

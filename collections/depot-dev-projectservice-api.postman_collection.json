@@ -1,0 +1,923 @@
+{
+  "item": [
+    {
+      "id": "98bea496-7f4b-4f6a-84a3-35bd6139d379",
+      "name": "ProjectService",
+      "description": {
+        "content": "Manage Depot projects and project tokens (depot.core.v1.ProjectService).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "76efcba2-82c3-4989-a328-2e05c2ef9bc7",
+          "name": "List projects in the organization.",
+          "request": {
+            "name": "List projects in the organization.",
+            "description": {},
+            "url": {
+              "path": [
+                "depot.core.v1.ProjectService",
+                "ListProjects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"pageSize\": \"<integer>\",\n  \"pageToken\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aee13d1f-7c13-458e-9d17-0f3d8360ea14",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "depot.core.v1.ProjectService",
+                    "ListProjects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"pageSize\": \"<integer>\",\n  \"pageToken\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"projects\": [\n    {\n      \"projectId\": \"string\",\n      \"organizationId\": \"string\",\n      \"name\": \"string\",\n      \"regionId\": \"string\",\n      \"createdAt\": \"1983-05-13T06:30:49.981Z\",\n      \"cachePolicy\": {\n        \"keepBytes\": \"string\",\n        \"keepDays\": 5517\n      }\n    },\n    {\n      \"projectId\": \"string\",\n      \"organizationId\": \"string\",\n      \"name\": \"string\",\n      \"regionId\": \"string\",\n      \"createdAt\": \"2003-09-12T10:34:17.665Z\",\n      \"cachePolicy\": {\n        \"keepBytes\": \"string\",\n        \"keepDays\": 5535\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a886ec84-82b9-44de-9d1f-877429c89607",
+          "name": "Create a new project.",
+          "request": {
+            "name": "Create a new project.",
+            "description": {},
+            "url": {
+              "path": [
+                "depot.core.v1.ProjectService",
+                "CreateProject"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"regionId\": \"<string>\",\n  \"cachePolicy\": {\n    \"keepBytes\": \"<int64>\",\n    \"keepDays\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d13e6b62-e4a6-49ef-b19c-eb15faa81700",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "depot.core.v1.ProjectService",
+                    "CreateProject"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"my-app\",\n  \"regionId\": \"us-east-1\",\n  \"cachePolicy\": {\n    \"keepBytes\": \"<int64>\",\n    \"keepDays\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"project\": {\n    \"projectId\": \"string\",\n    \"organizationId\": \"string\",\n    \"name\": \"string\",\n    \"regionId\": \"string\",\n    \"createdAt\": \"2000-09-26T17:20:31.794Z\",\n    \"cachePolicy\": {\n      \"keepBytes\": \"<int64>\",\n      \"keepDays\": \"<integer>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d3c9b982-1753-4fe9-889f-ede6365414fa",
+          "name": "Get a single project by ID.",
+          "request": {
+            "name": "Get a single project by ID.",
+            "description": {},
+            "url": {
+              "path": [
+                "depot.core.v1.ProjectService",
+                "GetProject"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"projectId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a528b7cf-6e24-4f4c-b1ad-9d56cf9976ab",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "depot.core.v1.ProjectService",
+                    "GetProject"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"projectId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"project\": {\n    \"projectId\": \"string\",\n    \"organizationId\": \"string\",\n    \"name\": \"string\",\n    \"regionId\": \"string\",\n    \"createdAt\": \"2000-09-26T17:20:31.794Z\",\n    \"cachePolicy\": {\n      \"keepBytes\": \"<int64>\",\n      \"keepDays\": \"<integer>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b37f39d9-cb9a-401e-b3f9-ca83801936b5",
+          "name": "Update an existing project.",
+          "request": {
+            "name": "Update an existing project.",
+            "description": {},
+            "url": {
+              "path": [
+                "depot.core.v1.ProjectService",
+                "UpdateProject"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"projectId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"regionId\": \"<string>\",\n  \"cachePolicy\": {\n    \"keepBytes\": \"<int64>\",\n    \"keepDays\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1045bf9a-d6fe-4174-9269-c9476b4bbe5d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "depot.core.v1.ProjectService",
+                    "UpdateProject"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"projectId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"regionId\": \"<string>\",\n  \"cachePolicy\": {\n    \"keepBytes\": \"<int64>\",\n    \"keepDays\": \"<integer>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"project\": {\n    \"projectId\": \"string\",\n    \"organizationId\": \"string\",\n    \"name\": \"string\",\n    \"regionId\": \"string\",\n    \"createdAt\": \"2000-09-26T17:20:31.794Z\",\n    \"cachePolicy\": {\n      \"keepBytes\": \"<int64>\",\n      \"keepDays\": \"<integer>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "931fa52d-63a9-436c-8e83-b15d3e24f71f",
+          "name": "Delete a project.",
+          "request": {
+            "name": "Delete a project.",
+            "description": {},
+            "url": {
+              "path": [
+                "depot.core.v1.ProjectService",
+                "DeleteProject"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"projectId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4c4b9575-99f7-4d3a-aa51-f7f2ba245239",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "depot.core.v1.ProjectService",
+                    "DeleteProject"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"projectId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a3e170ef-7c9d-4775-8498-99adf93445f4",
+          "name": "Reset (clear) the build cache for a project.",
+          "request": {
+            "name": "Reset (clear) the build cache for a project.",
+            "description": {},
+            "url": {
+              "path": [
+                "depot.core.v1.ProjectService",
+                "ResetProjectCache"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"projectId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4455ec40-40bc-423b-a235-871184243e2d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "depot.core.v1.ProjectService",
+                    "ResetProjectCache"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"projectId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86e1cbde-d550-41bf-a265-be3caaad50d7",
+          "name": "List project-scoped tokens for a project.",
+          "request": {
+            "name": "List project-scoped tokens for a project.",
+            "description": {},
+            "url": {
+              "path": [
+                "depot.core.v1.ProjectService",
+                "ListProjectTokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"projectId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "aabc0d06-219e-4a55-b6c3-529cdfdfe396",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "depot.core.v1.ProjectService",
+                    "ListProjectTokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"projectId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tokens\": [\n    {\n      \"tokenId\": \"string\",\n      \"description\": \"string\"\n    },\n    {\n      \"tokenId\": \"string\",\n      \"description\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "120afec0-38a8-4840-8b95-6d340b06a740",
+          "name": "Create a project-scoped token.",
+          "request": {
+            "name": "Create a project-scoped token.",
+            "description": {},
+            "url": {
+              "path": [
+                "depot.core.v1.ProjectService",
+                "CreateProjectToken"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"projectId\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "59af9b57-28e5-431d-a623-331ad9049964",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "depot.core.v1.ProjectService",
+                    "CreateProjectToken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"projectId\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"tokenId\": \"string\",\n  \"secret\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f299795e-beb2-41a2-a6ff-72220591870b",
+          "name": "Delete a project-scoped token.",
+          "request": {
+            "name": "Delete a project-scoped token.",
+            "description": {},
+            "url": {
+              "path": [
+                "depot.core.v1.ProjectService",
+                "DeleteProjectToken"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"projectId\": \"<string>\",\n  \"tokenId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0c41fab4-dc5e-41ff-b4d3-0e2f78581f02",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "depot.core.v1.ProjectService",
+                    "DeleteProjectToken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"projectId\": \"<string>\",\n  \"tokenId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.depot.dev",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d6c64520-4772-4b7f-aa3a-928f6d7d3766",
+    "name": "Depot BuildKitService ProjectService API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP/JSON view of the Depot API. Depot's API is built on Connect, which offers multiprotocol support for gRPC, gRPC-Web, and HTTP/JSON over the same services. Each remote procedure call (RPC) is invoked as an HTTP POST to a path of the form /{package}.{Service}/{Method}, with a JSON request body and a JSON response body. This document models the documented services for managing projects, project tokens, builds, and BuildKit connections. All requests are authenticated with a Bearer token (an organization API token, user token, or project token) in the Authorization header.\n\nContact Support:\n Name: Depot Support\n Email: help@depot.dev",
+      "type": "text/plain"
+    }
+  }
+}

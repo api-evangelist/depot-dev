@@ -1,0 +1,84 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Depot BuildKitService BuildService API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "BuildService",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Register a new build within a project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.build.v1.BuildService/CreateBuild",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a build for the given project and returns the new build's ID along with a one-time build token used to authenticate the build itself."
+        },
+        {
+          "info": {
+            "name": "Mark a build as finished.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.build.v1.BuildService/FinishBuild",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Mark a build as finished."
+        },
+        {
+          "info": {
+            "name": "Get a single build by ID.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.build.v1.BuildService/GetBuild",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get a single build by ID."
+        },
+        {
+          "info": {
+            "name": "List builds for a project.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.depot.dev/depot.build.v1.BuildService/ListBuilds",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "List builds for a project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
