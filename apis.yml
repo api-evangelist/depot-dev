@@ -8,6 +8,18 @@ description: Depot is a fast container-image build and remote cache service. It 
   tools like Bazel, Go, Turborepo, Gradle, and sccache. Depot is programmable through
   a public API at api.depot.dev built on Connect (multiprotocol gRPC, gRPC-Web, and
   HTTP/JSON) for managing projects, tokens, and builds, plus the depot CLI.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
