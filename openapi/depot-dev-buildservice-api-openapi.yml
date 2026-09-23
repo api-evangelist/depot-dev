@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Depot BuildKitService BuildService API
-  description: HTTP/JSON view of the Depot API. Depot's API is built on Connect, which offers multiprotocol support for gRPC, gRPC-Web, and HTTP/JSON over the same services. Each remote procedure call (RPC) is invoked as an HTTP POST to a path of the form /{package}.{Service}/{Method}, with a JSON request body and a JSON response body. This document models the documented services for managing projects, project tokens, builds, and BuildKit connections. All requests are authenticated with a Bearer token (an organization API token, user token, or project token) in the Authorization header.
+  title: Depot Build Service API
+  description: HTTP/JSON view of the Depot API.
   termsOfService: https://depot.dev/terms
   contact:
     name: Depot Support
@@ -21,7 +21,7 @@ paths:
       operationId: createBuild
       tags:
       - BuildService
-      summary: Register a new build within a project.
+      summary: Register a new build within a project
       description: Registers a build for the given project and returns the new build's ID along with a one-time build token used to authenticate the build itself.
       requestBody:
         required: true
@@ -41,7 +41,7 @@ paths:
       operationId: finishBuild
       tags:
       - BuildService
-      summary: Mark a build as finished.
+      summary: Mark a build as finished
       requestBody:
         required: true
         content:
@@ -60,7 +60,7 @@ paths:
       operationId: getBuild
       tags:
       - BuildService
-      summary: Get a single build by ID.
+      summary: Get a single build by ID
       requestBody:
         required: true
         content:
@@ -79,7 +79,7 @@ paths:
       operationId: listBuilds
       tags:
       - BuildService
-      summary: List builds for a project.
+      summary: List builds for a project
       requestBody:
         required: true
         content:
@@ -95,14 +95,6 @@ paths:
                 $ref: '#/components/schemas/ListBuildsResponse'
 components:
   schemas:
-    ProjectIdRequest:
-      type: object
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-          example: 1234567890
     CreateBuildRequest:
       type: object
       required:
@@ -111,6 +103,14 @@ components:
         projectId:
           type: string
           example: 1234567890
+    CreateBuildResponse:
+      type: object
+      properties:
+        buildId:
+          type: string
+        buildToken:
+          type: string
+          description: One-time token used to authenticate this specific build.
     ListBuildsResponse:
       type: object
       properties:
@@ -135,21 +135,6 @@ components:
               properties:
                 error:
                   type: string
-    CreateBuildResponse:
-      type: object
-      properties:
-        buildId:
-          type: string
-        buildToken:
-          type: string
-          description: One-time token used to authenticate this specific build.
-    GetBuildRequest:
-      type: object
-      required:
-      - buildId
-      properties:
-        buildId:
-          type: string
     Build:
       type: object
       properties:
@@ -178,6 +163,21 @@ components:
         totalSteps:
           type: integer
           format: int32
+    GetBuildRequest:
+      type: object
+      required:
+      - buildId
+      properties:
+        buildId:
+          type: string
+    ProjectIdRequest:
+      type: object
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+          example: 1234567890
     EmptyResponse:
       type: object
   securitySchemes:

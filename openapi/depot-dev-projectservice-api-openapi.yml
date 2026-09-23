@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Depot BuildKitService ProjectService API
-  description: HTTP/JSON view of the Depot API. Depot's API is built on Connect, which offers multiprotocol support for gRPC, gRPC-Web, and HTTP/JSON over the same services. Each remote procedure call (RPC) is invoked as an HTTP POST to a path of the form /{package}.{Service}/{Method}, with a JSON request body and a JSON response body. This document models the documented services for managing projects, project tokens, builds, and BuildKit connections. All requests are authenticated with a Bearer token (an organization API token, user token, or project token) in the Authorization header.
+  title: Depot Project Service API
+  description: HTTP/JSON view of the Depot API.
   termsOfService: https://depot.dev/terms
   contact:
     name: Depot Support
@@ -21,7 +21,7 @@ paths:
       operationId: listProjects
       tags:
       - ProjectService
-      summary: List projects in the organization.
+      summary: List projects in the organization
       requestBody:
         required: true
         content:
@@ -40,7 +40,7 @@ paths:
       operationId: createProject
       tags:
       - ProjectService
-      summary: Create a new project.
+      summary: Create a new project
       requestBody:
         required: true
         content:
@@ -59,7 +59,7 @@ paths:
       operationId: getProject
       tags:
       - ProjectService
-      summary: Get a single project by ID.
+      summary: Get a single project by ID
       requestBody:
         required: true
         content:
@@ -78,7 +78,7 @@ paths:
       operationId: updateProject
       tags:
       - ProjectService
-      summary: Update an existing project.
+      summary: Update an existing project
       requestBody:
         required: true
         content:
@@ -97,7 +97,7 @@ paths:
       operationId: deleteProject
       tags:
       - ProjectService
-      summary: Delete a project.
+      summary: Delete a project
       requestBody:
         required: true
         content:
@@ -116,7 +116,7 @@ paths:
       operationId: resetProjectCache
       tags:
       - ProjectService
-      summary: Reset (clear) the build cache for a project.
+      summary: Reset (clear) the build cache for a project
       requestBody:
         required: true
         content:
@@ -135,7 +135,7 @@ paths:
       operationId: listProjectTokens
       tags:
       - ProjectService
-      summary: List project-scoped tokens for a project.
+      summary: List project-scoped tokens for a project
       requestBody:
         required: true
         content:
@@ -154,7 +154,7 @@ paths:
       operationId: createProjectToken
       tags:
       - ProjectService
-      summary: Create a project-scoped token.
+      summary: Create a project-scoped token
       requestBody:
         required: true
         content:
@@ -173,7 +173,7 @@ paths:
       operationId: deleteProjectToken
       tags:
       - ProjectService
-      summary: Delete a project-scoped token.
+      summary: Delete a project-scoped token
       requestBody:
         required: true
         content:
@@ -189,49 +189,6 @@ paths:
                 $ref: '#/components/schemas/EmptyResponse'
 components:
   schemas:
-    DeleteProjectTokenRequest:
-      type: object
-      required:
-      - projectId
-      - tokenId
-      properties:
-        projectId:
-          type: string
-        tokenId:
-          type: string
-    ProjectIdRequest:
-      type: object
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-          example: 1234567890
-    CachePolicy:
-      type: object
-      description: Retention policy for the project's build cache.
-      properties:
-        keepBytes:
-          type: string
-          format: int64
-          description: Maximum cache size to retain, in bytes.
-        keepDays:
-          type: integer
-          format: int32
-          description: Number of days to retain cache entries.
-    UpdateProjectRequest:
-      type: object
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-        name:
-          type: string
-        regionId:
-          type: string
-        cachePolicy:
-          $ref: '#/components/schemas/CachePolicy'
     CreateProjectTokenRequest:
       type: object
       required:
@@ -241,40 +198,11 @@ components:
           type: string
         description:
           type: string
-    CreateProjectRequest:
-      type: object
-      required:
-      - name
-      - regionId
-      properties:
-        name:
-          type: string
-          example: my-app
-        regionId:
-          type: string
-          example: us-east-1
-        cachePolicy:
-          $ref: '#/components/schemas/CachePolicy'
     ProjectResponse:
       type: object
       properties:
         project:
           $ref: '#/components/schemas/Project'
-    ListProjectsResponse:
-      type: object
-      properties:
-        projects:
-          type: array
-          items:
-            $ref: '#/components/schemas/Project'
-    ListProjectsRequest:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-        pageToken:
-          type: string
     CreateProjectTokenResponse:
       type: object
       properties:
@@ -283,13 +211,6 @@ components:
         secret:
           type: string
           description: The token secret, returned only once at creation time.
-    ProjectToken:
-      type: object
-      properties:
-        tokenId:
-          type: string
-        description:
-          type: string
     Project:
       type: object
       properties:
@@ -306,8 +227,21 @@ components:
           format: date-time
         cachePolicy:
           $ref: '#/components/schemas/CachePolicy'
-    EmptyResponse:
+    ListProjectsResponse:
       type: object
+      properties:
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+    ListProjectsRequest:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+        pageToken:
+          type: string
     ListProjectTokensResponse:
       type: object
       properties:
@@ -315,6 +249,72 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/ProjectToken'
+    ProjectIdRequest:
+      type: object
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+          example: 1234567890
+    ProjectToken:
+      type: object
+      properties:
+        tokenId:
+          type: string
+        description:
+          type: string
+    DeleteProjectTokenRequest:
+      type: object
+      required:
+      - projectId
+      - tokenId
+      properties:
+        projectId:
+          type: string
+        tokenId:
+          type: string
+    CachePolicy:
+      type: object
+      description: Retention policy for the project's build cache.
+      properties:
+        keepBytes:
+          type: string
+          format: int64
+          description: Maximum cache size to retain, in bytes.
+        keepDays:
+          type: integer
+          format: int32
+          description: Number of days to retain cache entries.
+    EmptyResponse:
+      type: object
+    UpdateProjectRequest:
+      type: object
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+        name:
+          type: string
+        regionId:
+          type: string
+        cachePolicy:
+          $ref: '#/components/schemas/CachePolicy'
+    CreateProjectRequest:
+      type: object
+      required:
+      - name
+      - regionId
+      properties:
+        name:
+          type: string
+          example: my-app
+        regionId:
+          type: string
+          example: us-east-1
+        cachePolicy:
+          $ref: '#/components/schemas/CachePolicy'
   securitySchemes:
     bearerAuth:
       type: http

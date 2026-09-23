@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Depot BuildKitService API
-  description: HTTP/JSON view of the Depot API. Depot's API is built on Connect, which offers multiprotocol support for gRPC, gRPC-Web, and HTTP/JSON over the same services. Each remote procedure call (RPC) is invoked as an HTTP POST to a path of the form /{package}.{Service}/{Method}, with a JSON request body and a JSON response body. This document models the documented services for managing projects, project tokens, builds, and BuildKit connections. All requests are authenticated with a Bearer token (an organization API token, user token, or project token) in the Authorization header.
+  title: Depot Build Kit Service API
+  description: HTTP/JSON view of the Depot API.
   termsOfService: https://depot.dev/terms
   contact:
     name: Depot Support
@@ -21,7 +21,7 @@ paths:
       operationId: getEndpoint
       tags:
       - BuildKitService
-      summary: Acquire a BuildKit machine endpoint for a build.
+      summary: Acquire a BuildKit machine endpoint for a build
       description: Returns a lower-level BuildKit connection (endpoint plus TLS material) for advanced use cases that drive BuildKit directly. Authenticated with the one-time build token returned by CreateBuild.
       requestBody:
         required: true
