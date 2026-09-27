@@ -95,46 +95,6 @@ paths:
                 $ref: '#/components/schemas/ListBuildsResponse'
 components:
   schemas:
-    CreateBuildRequest:
-      type: object
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-          example: 1234567890
-    CreateBuildResponse:
-      type: object
-      properties:
-        buildId:
-          type: string
-        buildToken:
-          type: string
-          description: One-time token used to authenticate this specific build.
-    ListBuildsResponse:
-      type: object
-      properties:
-        builds:
-          type: array
-          items:
-            $ref: '#/components/schemas/Build'
-    FinishBuildRequest:
-      type: object
-      required:
-      - buildId
-      properties:
-        buildId:
-          type: string
-        result:
-          type: object
-          properties:
-            success:
-              type: object
-            error:
-              type: object
-              properties:
-                error:
-                  type: string
     Build:
       type: object
       properties:
@@ -170,7 +130,47 @@ components:
       properties:
         buildId:
           type: string
+    CreateBuildResponse:
+      type: object
+      properties:
+        buildId:
+          type: string
+        buildToken:
+          type: string
+          description: One-time token used to authenticate this specific build.
+    ListBuildsResponse:
+      type: object
+      properties:
+        builds:
+          type: array
+          items:
+            $ref: '#/components/schemas/Build'
     ProjectIdRequest:
+      type: object
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+          example: 1234567890
+    FinishBuildRequest:
+      type: object
+      required:
+      - buildId
+      properties:
+        buildId:
+          type: string
+        result:
+          type: object
+          properties:
+            success:
+              type: object
+            error:
+              type: object
+              properties:
+                error:
+                  type: string
+    CreateBuildRequest:
       type: object
       required:
       - projectId
