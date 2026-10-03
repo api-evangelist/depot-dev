@@ -189,6 +189,17 @@ paths:
                 $ref: '#/components/schemas/EmptyResponse'
 components:
   schemas:
+    CreateProjectTokenRequest:
+      type: object
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+        description:
+          type: string
+    EmptyResponse:
+      type: object
     ProjectResponse:
       type: object
       properties:
@@ -204,22 +215,46 @@ components:
           type: string
         tokenId:
           type: string
-    ListProjectTokensResponse:
+    ListProjectsResponse:
       type: object
       properties:
-        tokens:
+        projects:
           type: array
           items:
-            $ref: '#/components/schemas/ProjectToken'
-    CreateProjectTokenRequest:
+            $ref: '#/components/schemas/Project'
+    CachePolicy:
+      type: object
+      description: Retention policy for the project's build cache.
+      properties:
+        keepBytes:
+          type: string
+          format: int64
+          description: Maximum cache size to retain, in bytes.
+        keepDays:
+          type: integer
+          format: int32
+          description: Number of days to retain cache entries.
+    ListProjectsRequest:
+      type: object
+      properties:
+        pageSize:
+          type: integer
+          format: int32
+        pageToken:
+          type: string
+    UpdateProjectRequest:
       type: object
       required:
       - projectId
       properties:
         projectId:
           type: string
-        description:
+        name:
           type: string
+        regionId:
+          type: string
+        cachePolicy:
+          $ref: '#/components/schemas/CachePolicy'
     CreateProjectTokenResponse:
       type: object
       properties:
@@ -242,61 +277,6 @@ components:
           example: us-east-1
         cachePolicy:
           $ref: '#/components/schemas/CachePolicy'
-    ProjectToken:
-      type: object
-      properties:
-        tokenId:
-          type: string
-        description:
-          type: string
-    ListProjectsRequest:
-      type: object
-      properties:
-        pageSize:
-          type: integer
-          format: int32
-        pageToken:
-          type: string
-    UpdateProjectRequest:
-      type: object
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-        name:
-          type: string
-        regionId:
-          type: string
-        cachePolicy:
-          $ref: '#/components/schemas/CachePolicy'
-    ProjectIdRequest:
-      type: object
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-          example: 1234567890
-    ListProjectsResponse:
-      type: object
-      properties:
-        projects:
-          type: array
-          items:
-            $ref: '#/components/schemas/Project'
-    CachePolicy:
-      type: object
-      description: Retention policy for the project's build cache.
-      properties:
-        keepBytes:
-          type: string
-          format: int64
-          description: Maximum cache size to retain, in bytes.
-        keepDays:
-          type: integer
-          format: int32
-          description: Number of days to retain cache entries.
     Project:
       type: object
       properties:
@@ -313,8 +293,28 @@ components:
           format: date-time
         cachePolicy:
           $ref: '#/components/schemas/CachePolicy'
-    EmptyResponse:
+    ProjectToken:
       type: object
+      properties:
+        tokenId:
+          type: string
+        description:
+          type: string
+    ProjectIdRequest:
+      type: object
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+          example: 1234567890
+    ListProjectTokensResponse:
+      type: object
+      properties:
+        tokens:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectToken'
   securitySchemes:
     bearerAuth:
       type: http

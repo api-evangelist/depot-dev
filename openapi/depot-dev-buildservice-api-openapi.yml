@@ -95,6 +95,63 @@ paths:
                 $ref: '#/components/schemas/ListBuildsResponse'
 components:
   schemas:
+    EmptyResponse:
+      type: object
+    FinishBuildRequest:
+      type: object
+      required:
+      - buildId
+      properties:
+        buildId:
+          type: string
+        result:
+          type: object
+          properties:
+            success:
+              type: object
+            error:
+              type: object
+              properties:
+                error:
+                  type: string
+    ProjectIdRequest:
+      type: object
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+          example: 1234567890
+    ListBuildsResponse:
+      type: object
+      properties:
+        builds:
+          type: array
+          items:
+            $ref: '#/components/schemas/Build'
+    CreateBuildRequest:
+      type: object
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+          example: 1234567890
+    GetBuildRequest:
+      type: object
+      required:
+      - buildId
+      properties:
+        buildId:
+          type: string
+    CreateBuildResponse:
+      type: object
+      properties:
+        buildId:
+          type: string
+        buildToken:
+          type: string
+          description: One-time token used to authenticate this specific build.
     Build:
       type: object
       properties:
@@ -123,63 +180,6 @@ components:
         totalSteps:
           type: integer
           format: int32
-    GetBuildRequest:
-      type: object
-      required:
-      - buildId
-      properties:
-        buildId:
-          type: string
-    CreateBuildResponse:
-      type: object
-      properties:
-        buildId:
-          type: string
-        buildToken:
-          type: string
-          description: One-time token used to authenticate this specific build.
-    ListBuildsResponse:
-      type: object
-      properties:
-        builds:
-          type: array
-          items:
-            $ref: '#/components/schemas/Build'
-    ProjectIdRequest:
-      type: object
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-          example: 1234567890
-    FinishBuildRequest:
-      type: object
-      required:
-      - buildId
-      properties:
-        buildId:
-          type: string
-        result:
-          type: object
-          properties:
-            success:
-              type: object
-            error:
-              type: object
-              properties:
-                error:
-                  type: string
-    CreateBuildRequest:
-      type: object
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-          example: 1234567890
-    EmptyResponse:
-      type: object
   securitySchemes:
     bearerAuth:
       type: http
