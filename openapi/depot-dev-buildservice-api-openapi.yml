@@ -95,6 +95,21 @@ paths:
                 $ref: '#/components/schemas/ListBuildsResponse'
 components:
   schemas:
+    ProjectIdRequest:
+      type: object
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+          example: 1234567890
+    GetBuildRequest:
+      type: object
+      required:
+      - buildId
+      properties:
+        buildId:
+          type: string
     EmptyResponse:
       type: object
     FinishBuildRequest:
@@ -114,44 +129,6 @@ components:
               properties:
                 error:
                   type: string
-    ProjectIdRequest:
-      type: object
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-          example: 1234567890
-    ListBuildsResponse:
-      type: object
-      properties:
-        builds:
-          type: array
-          items:
-            $ref: '#/components/schemas/Build'
-    CreateBuildRequest:
-      type: object
-      required:
-      - projectId
-      properties:
-        projectId:
-          type: string
-          example: 1234567890
-    GetBuildRequest:
-      type: object
-      required:
-      - buildId
-      properties:
-        buildId:
-          type: string
-    CreateBuildResponse:
-      type: object
-      properties:
-        buildId:
-          type: string
-        buildToken:
-          type: string
-          description: One-time token used to authenticate this specific build.
     Build:
       type: object
       properties:
@@ -180,6 +157,29 @@ components:
         totalSteps:
           type: integer
           format: int32
+    ListBuildsResponse:
+      type: object
+      properties:
+        builds:
+          type: array
+          items:
+            $ref: '#/components/schemas/Build'
+    CreateBuildRequest:
+      type: object
+      required:
+      - projectId
+      properties:
+        projectId:
+          type: string
+          example: 1234567890
+    CreateBuildResponse:
+      type: object
+      properties:
+        buildId:
+          type: string
+        buildToken:
+          type: string
+          description: One-time token used to authenticate this specific build.
   securitySchemes:
     bearerAuth:
       type: http
