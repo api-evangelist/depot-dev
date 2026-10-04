@@ -168,6 +168,9 @@ apis:
   - type: Documentation
     url: https://depot.dev/blog/project-tokens
 common:
+- type: CapabilityMap
+  url: capabilities/depot-dev-capability-edges.yml
+  name: Depot Business Capability Map
 - type: AgenticAccess
   url: agentic-access/depot-dev-agentic-access.yml
 - type: DomainSecurity
