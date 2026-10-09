@@ -1,21 +1,34 @@
-generated: '2026-07-15'
+generated: '2026-09-23'
 method: generated
-source: openapi/depot-dev-openapi.yml
+source: openapi/depot-dev-buildkitservice-api-openapi.yml, openapi/depot-dev-buildservice-api-openapi.yml,
+  openapi/depot-dev-projectservice-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 14
   by_action_class:
-    acting: 14
+    connected: 5
+    acting: 9
   by_consequence:
-    write: 13
+    read: 5
+    write: 8
     safety-critical: 1
   human_in_the_loop_required: 1
 operations:
-- path: /depot.core.v1.ProjectService/ListProjects
+- path: /depot.buildkit.v1.BuildKitService/GetEndpoint
   method: post
-  operationId: listProjects
+  operationId: getEndpoint
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /depot.build.v1.BuildService/CreateBuild
+  method: post
+  operationId: createBuild
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -29,6 +42,52 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /depot.build.v1.BuildService/FinishBuild
+  method: post
+  operationId: finishBuild
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /depot.build.v1.BuildService/GetBuild
+  method: post
+  operationId: getBuild
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /depot.build.v1.BuildService/ListBuilds
+  method: post
+  operationId: listBuilds
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /depot.core.v1.ProjectService/ListProjects
+  method: post
+  operationId: listProjects
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /depot.core.v1.ProjectService/CreateProject
   method: post
   operationId: createProject
@@ -49,18 +108,12 @@ operations:
   method: post
   operationId: getProject
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /depot.core.v1.ProjectService/UpdateProject
   method: post
   operationId: updateProject
@@ -144,86 +197,6 @@ operations:
 - path: /depot.core.v1.ProjectService/DeleteProjectToken
   method: post
   operationId: deleteProjectToken
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /depot.build.v1.BuildService/CreateBuild
-  method: post
-  operationId: createBuild
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /depot.build.v1.BuildService/FinishBuild
-  method: post
-  operationId: finishBuild
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /depot.build.v1.BuildService/GetBuild
-  method: post
-  operationId: getBuild
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /depot.build.v1.BuildService/ListBuilds
-  method: post
-  operationId: listBuilds
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /depot.buildkit.v1.BuildKitService/GetEndpoint
-  method: post
-  operationId: getEndpoint
   x-agentic-access:
     action-class: acting
     consequence: write
