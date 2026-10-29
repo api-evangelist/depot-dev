@@ -1,4 +1,4 @@
-# Depot (depot-dev)
+# Depot
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,154 +66,122 @@
 
 Depot is a fast container-image build and remote cache service. It runs Docker builds and GitHub Actions jobs on managed, single-tenant cloud compute with persistent BuildKit cache, and exposes Depot Cache as a remote cache backend for tools like Bazel, Go, Turborepo, Gradle, and sccache. Depot is programmable through a public API at api.depot.dev built on Connect (multiprotocol gRPC, gRPC-Web, and HTTP/JSON) for managing projects, tokens, and builds, plus the depot CLI.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/depot-dev/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/depot-dev/refs/heads/main/apis.yml)
+**Areas:** Container Builds · Docker · BuildKit · Remote Cache · CI/CD · GitHub Actions · Developer Tools
 
-## Tags
+## Depot on APIs.io
 
-- Container Builds
-- Docker
-- BuildKit
-- Remote Cache
-- CI/CD
-- GitHub Actions
+Everything profiled for Depot is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/depot-dev/](https://apis.io/providers/depot-dev/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (5)
 
-- **Created:** 2026-06-20
-- **Modified:** 2026-06-20
+- [Depot GitHub Actions Runners](https://apis.io/apis/depot-dev/depot-dev-github-actions-runners/) — Managed, single-tenant GitHub Actions runners selected via runner labels (e.g. depot-ubuntu-24.04, depot-ubuntu-24.04-arm) across Intel, Arm/Graviton4,…
+- [Depot Cache](https://apis.io/apis/depot-dev/depot-dev-cache/) — Depot Cache is a remote build cache backend that plugs into tools supporting remote caching (GitHub Actions, Bazel, Go, Turborepo, Gradle, Pants, sccache).…
+- [Depot BuildKitService API](https://apis.io/apis/depot-dev/depot-dev-buildkitservice-api/) — Acquire a low-level BuildKit machine connection (depot.buildkit.v1.BuildKitService).
+- [Depot BuildService API](https://apis.io/apis/depot-dev/depot-dev-buildservice-api/) — Register, finish, get, and list builds (depot.build.v1.BuildService).
+- [Depot ProjectService API](https://apis.io/apis/depot-dev/depot-dev-projectservice-api/) — Manage Depot projects and project tokens (depot.core.v1.ProjectService).
 
-## APIs
+### Published properties
 
-### Depot Project API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Connect/gRPC ProjectService in the depot.core.v1 package for managing projects (Depot's unit of cache isolation), including create, get, list, update, delete, and cache-policy/reset operations. Exposed over HTTP/JSON as POST calls to /depot.core.v1.ProjectService/{Method}.
+#### Agentic access (1)
 
-- **Human URL:** [https://depot.dev/docs/api/overview](https://depot.dev/docs/api/overview)
-- **Base URL:** `https://api.depot.dev`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Depot Dev Agentic Access](https://apis.io/agentic-access/depot-dev/depot-dev-agentic-access/)
 
-- Projects
-- Organizations
-- Cache Policy
+#### Collections (4)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://depot.dev/docs/container-builds/reference/api-overview)
-- [API Reference](https://buf.build/depot/api/docs/main:depot.core.v1)
-- [OpenAPI](openapi/depot-dev-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/depot-dev.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/depot-dev.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Depot API](https://apis.io/collections/depot-dev/open-depot-dev/)
+- [Depot BuildKitService API](https://apis.io/collections/depot-dev/open-depot-dev-buildkitservice-api/)
+- [Depot BuildKitService BuildService API](https://apis.io/collections/depot-dev/open-depot-dev-buildservice-api/)
+- [Depot BuildKitService ProjectService API](https://apis.io/collections/depot-dev/open-depot-dev-projectservice-api/)
 
-### Depot Build API
+#### Security (2)
 
-Connect/gRPC BuildService in the depot.build.v1 package for registering a build (returns a build ID and one-time build token), finishing a build, getting a build, and listing builds for a project. Exposed over HTTP/JSON as POST calls to /depot.build.v1.BuildService/{Method}.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://depot.dev/docs/api/api-container-builds-tutorial](https://depot.dev/docs/api/api-container-builds-tutorial)
-- **Base URL:** `https://api.depot.dev`
+- [Depot Dev Authentication](https://apis.io/security/depot-dev/depot-dev-authentication/)
+- [Depot Dev Domain Security](https://apis.io/security/depot-dev/depot-dev-domain-security/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Builds
-- Docker
-- BuildKit
+Published plans, tiers and prices.
 
-#### Properties
+- [Depot Dev Plans Pricing](https://apis.io/plans/depot-dev/depot-dev-plans-pricing/)
 
-- [Documentation](https://depot.dev/blog/docker-build-api)
-- [API Reference](https://depot.dev/docs/api/api-container-builds-tutorial)
-- [OpenAPI](openapi/depot-dev-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/depot-dev.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/depot-dev.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Rate limits (1)
 
-### Depot BuildKit API
+Published request limits.
 
-Connect/gRPC BuildKitService in the depot.buildkit.v1 package that acquires a lower-level BuildKit machine connection (endpoint plus TLS material) for advanced use cases that drive BuildKit directly. Exposed over HTTP/JSON as POST calls to /depot.buildkit.v1.BuildKitService/{Method}.
+- [Depot Dev Rate Limits](https://apis.io/rate-limits/depot-dev/depot-dev-rate-limits/)
 
-- **Human URL:** [https://depot.dev/docs/api/api-container-builds-tutorial](https://depot.dev/docs/api/api-container-builds-tutorial)
-- **Base URL:** `https://api.depot.dev`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- BuildKit
-- Endpoint
-- Machine
+- [Depot Dev Finops](https://apis.io/finops/depot-dev/depot-dev-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://depot.dev/blog/depot-api)
-- [OpenAPI](openapi/depot-dev-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/depot-dev.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/depot-dev.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### Depot Tokens API
-
-Project-token management on the depot.core.v1 ProjectService (list, create, and delete project-scoped tokens). Project tokens are scoped to a single project and are the recommended credential for authenticating CI builds. Exposed over HTTP/JSON as POST calls to /depot.core.v1.ProjectService/{Method}.
-
-- **Human URL:** [https://depot.dev/docs/container-builds/reference/api-authentication](https://depot.dev/docs/container-builds/reference/api-authentication)
-- **Base URL:** `https://api.depot.dev`
-
-#### Tags
-
-- Tokens
-- Authentication
-- Project Tokens
-
-#### Properties
-
-- [Documentation](https://depot.dev/docs/container-builds/reference/api-authentication)
-- [Documentation](https://depot.dev/blog/project-tokens)
-- [OpenAPI](openapi/depot-dev-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/depot-dev.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/depot-dev.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Depot GitHub Actions Runners
-
-Managed, single-tenant GitHub Actions runners selected via runner labels (e.g. depot-ubuntu-24.04, depot-ubuntu-24.04-arm) across Intel, Arm/Graviton4, macOS, Windows, and GPU sizes. Runners are provisioned through a GitHub webhook integration rather than direct API calls; usage is billed per second at roughly half the cost of GitHub-hosted runners.
-
-- **Human URL:** [https://depot.dev/docs/github-actions/overview](https://depot.dev/docs/github-actions/overview)
-- **Base URL:** `https://api.depot.dev`
-
-#### Tags
-
-- GitHub Actions
-- Runners
-- CI/CD
-
-#### Properties
-
-- [Documentation](https://depot.dev/docs/github-actions/overview)
-- [Documentation](https://depot.dev/products/github-actions)
-
-### Depot Cache
-
-Depot Cache is a remote build cache backend that plugs into tools supporting remote caching (GitHub Actions, Bazel, Go, Turborepo, Gradle, Pants, sccache). It is consumed through each tool's native remote-cache protocol authenticated with a Depot token, not through a separate REST API.
-
-- **Human URL:** [https://depot.dev/docs/cache/overview](https://depot.dev/docs/cache/overview)
-- **Base URL:** `https://api.depot.dev`
-
-#### Tags
-
-- Remote Cache
-- Bazel
-- Turborepo
-- sccache
-
-#### Properties
-
-- [Documentation](https://depot.dev/docs/cache/overview)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/depot)
-- [LinkedIn](https://www.linkedin.com/company/depot-dev)
 - [Website](https://depot.dev/)
 - [Documentation](https://depot.dev/docs)
-- [Plans](plans/depot-dev-plans-pricing.yml)
-- [Rate Limits](rate-limits/depot-dev-rate-limits.yml)
-- [Fin Ops](finops/depot-dev-finops.yml)
+- [Blog](https://depot.dev/rss.xml)
+- [GitHub](https://github.com/depot)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 25.8** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 44.1 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/depot-dev/](https://apis.io/providers/depot-dev/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Depot: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/depot-dev/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
